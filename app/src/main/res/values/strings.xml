@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">中国法律</string>
+    <string name="app_name">执法手册</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_content">ContentActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
