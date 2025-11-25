@@ -8,6 +8,21 @@
 1. 离线使用；
 2. 遵循 [Material Design2](https://m2.material.io) 风格
 
+## Local Dev and Build
+
+```shell
+# 案例一：克隆带有子模块的完整项目
+git clone --recursive https://github.com/Enforcement-Handbook/EnforcementBook.git
+
+# 案例二：只克隆主项目（默认是不会自动克隆子项目的）
+## 初始化之模块
+git submodule update --init --recursive
+## 更新子模块
+git submodule update --remote
+```
+
+九、应急救援-->规范性文件
+
 ## License
 
 ```text

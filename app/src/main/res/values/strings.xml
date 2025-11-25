@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">执法手册</string>
+    <string name="app_name">新疆应急法规</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_content">ContentActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
@@ -76,7 +76,7 @@
     <string name="unfold">展开</string>
     <string name="save_success">保存成功</string>
 
-    <string name="remarks">开发寄语</string>
+    <string name="remarks">关于应用</string>
     <string name="developer_remarks" formatted="true">
         <ol>
             <li>离线使用；</li>
@@ -84,30 +84,33 @@
             <li>完全开源</li>
         </ol>
     </string>
-    <string name="app_tip" formatted="false">本应用<b>不代表</b>政府机关，&lt;br>
-        本应用<b>不是</b>政府提供的服务，&lt;br>
-        本应用<b>不是</b>政府机关提供的 App</string>
+    <string name="app_tip1" formatted="false">
+        1. 当前版本为离线;
+    </string>
+    <string name="app_tip2" formatted="false">
+        2. 应用未上架任何应用市场。
+    </string>
     <string name="thanks">特别感谢 <a href='https://github.com/LawRefBook/Laws'>@RanKKI</a> 提供开源数据</string>
 
     <string name="other_version">版本</string>
     <string name="other_version_name" formatted="false">%s（%s）</string>
-    <string name="release_note">更新日志</string>
-    <string name="lawrefbook_log">https://incoder.app/android/lawrefbook</string>
-    <string name="source_code">Source Code</string>
+    <string name="release_note">网页版</string>
+    <string name="lawrefbook_log">https://web.fadian.net</string>
+    <string name="source_code">国家应急管理部</string>
     <string name="data_source">数据源</string>
     <string name="data_source_address">https://flk.npc.gov.cn</string>
-    <string name="privacy_des">Privacy</string>
-    <string name="design_style">Design Style</string>
-    <string name="privacy_address">https://privacy.incoder.app/posts/lawrefbook</string>
+    <string name="privacy_des">下载地址</string>
+    <string name="design_style">国家法律法规数据库</string>
+    <string name="privacy_address">https://app.fadian.net</string>
     <string name="design_url">https://m2.material.io</string>
-    <string name="github_lawrefbook">https://github.com/IncoderApp/LawRefBook</string>
-    <string name="praise">五星评价</string>
-    <string name="praise_desc">您的好评是我更新的动力</string>
+    <string name="github_lawrefbook">https://www.mem.gov.cn</string>
+    <string name="praise">新疆维吾尔自治区应急管理厅</string>
+    <string name="praise_desc">https://yjgl.xinjiang.gov.cn</string>
 
     <string name="developers">Developers</string>
-    <string name="author">Jerry Xu</string>
-    <string name="author_blog">https://incoder.org</string>
-    <string name="developer_designer" formatted="false">Developer &amp; Designer</string>
+    <string name="author">新疆维吾尔自治区应急管理厅</string>
+    <string name="author_blog">https://yjgl.xinjiang.gov.cn</string>
+    <string name="developer_designer" formatted="false">昌吉回族自治州应急管理局</string>
     <string name="feedback" formatted="false">反馈 &amp; 建议</string>
     <string name="author_email">incoder.xu@gmail.com</string>
 
@@ -121,4 +124,6 @@
 
     <!--    Accessibility-->
     <string name="title">标题栏</string>
+    <string name="xinjiang">新疆</string>
+    <string name="xj_en">DEPARTMENT OF EMERGENCY MANAGEMENT OF XINJIANG UYGUR AUTONOMOUS REGION</string>
 </resources>

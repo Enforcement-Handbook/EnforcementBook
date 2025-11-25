@@ -82,7 +82,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
-        if (mLibraries != null && mLibraries.size() > 0) {
+        if (mLibraries != null && !mLibraries.isEmpty()) {
             Libraries item = mLibraries.get(position);
             holder.itemView.setOnClickListener(v -> {
                 Article article = LawRefBookRepository.getArticle(v.getContext(), item.getArticlePath());

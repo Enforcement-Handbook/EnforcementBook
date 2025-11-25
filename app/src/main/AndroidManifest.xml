@@ -53,6 +53,11 @@
             android:theme="@style/Theme.LawRefBook.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustNothing" />
         <activity
+            android:name=".ui.content.DocumentViewActivity"
+            android:exported="false"
+            android:label="文档查看"
+            android:theme="@style/Theme.LawRefBook" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />

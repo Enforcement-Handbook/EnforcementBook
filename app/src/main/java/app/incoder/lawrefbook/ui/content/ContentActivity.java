@@ -86,12 +86,14 @@ public class ContentActivity extends AppCompatActivity {
     public static String Article = "article";
     public static String Folder = "folder";
     public static String ArticleId = "articleId";
+    public static String FileType = "file_type";
 
     protected CoordinatorLayout mCoordinatorLayout;
     private ActivityContentBinding mBinding;
     private BottomAppBar mBottomAppBar;
     private AppBarLayout mBarLayout;
     private RecyclerView mRecyclerView;
+    private android.webkit.WebView mWebView;
     private ContentAdapter mAdapter;
     private CatalogSheetFragment mSheetFragment;
 
@@ -100,6 +102,7 @@ public class ContentActivity extends AppCompatActivity {
     private String mPath;
     private String mFolder;
     private String mArticleId;
+    private String mFileType; // 文件类型：md, pdf, docx, wps 等
     private LibrariesViewModel mViewModel;
     private FloatingActionButton mFavorite;
     private SelectionTracker<Long> mSelectionTracker;
@@ -129,6 +132,13 @@ public class ContentActivity extends AppCompatActivity {
         mPath = getIntent().getStringExtra(ContentActivity.Path);
         mArticleId = getIntent().getStringExtra(ContentActivity.ArticleId);
         mFolder = getIntent().getStringExtra(ContentActivity.Folder);
+        mFileType = getIntent().getStringExtra(ContentActivity.FileType);
+
+        // 如果没有传递 FileType，从路径中推断
+        if (mFileType == null && mPath != null && mPath.contains(".")) {
+            mFileType = mPath.substring(mPath.lastIndexOf(".") + 1).toLowerCase();
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             mArticle = getIntent().getSerializableExtra(ContentActivity.Article, Article.class);
         } else {
@@ -141,17 +151,49 @@ public class ContentActivity extends AppCompatActivity {
         FloatingActionButton fabInfo = mBinding.officialUrl;
         mFavorite = mBinding.favorite;
         mBottomAppBar = mBinding.extend;
-        mBinding.tvCount.setText(String.format(getString(R.string.word_count), mArticle.getInfo().getWordsCount()));
-        if ("".equals(mArticle.getTitle())) {
-            toolBarLayout.setTitle(mTitle);
+
+        // 根据文件类型设置标题和内容
+        if (mArticle != null && mArticle.getInfo() != null) {
+            mBinding.tvCount.setText(String.format(getString(R.string.word_count), mArticle.getInfo().getWordsCount()));
         } else {
-            String toolbarTitle = mArticle.getTitle();
-            if (toolbarTitle.length() > 18) {
-                StringBuilder stringBuffer = new StringBuilder(toolbarTitle);
-                stringBuffer.replace(18, toolbarTitle.length(), "...");
-                toolbarTitle = stringBuffer.toString();
+            // 非 MD 文件或 Article 为 null
+            mBinding.tvCount.setText(String.format(getString(R.string.word_count), "0"));
+        }
+
+        // 设置标题到 CollapsingToolbarLayout 和自定义 TextView
+        String titleText = null;
+        if (mArticle != null && mArticle.getTitle() != null && !mArticle.getTitle().isEmpty()) {
+            titleText = mArticle.getTitle();
+        } else if (mTitle != null && !mTitle.isEmpty()) {
+            titleText = mTitle;
+        }
+
+        if (titleText != null) {
+            // 获取自定义 TextView
+//            android.widget.TextView toolbarTitleView = findViewById(R.id.toolbar_title);
+
+            // 对于 MD 文件，使用 CollapsingToolbarLayout 的默认标题
+            // 对于非 MD 文件，使用自定义 TextView 显示标题（支持滚动）
+            if ("md".equalsIgnoreCase(mFileType) && mArticle != null) {
+                // MD 文件：使用 CollapsingToolbarLayout 的默认标题
+                toolBarLayout.setTitle(titleText);
+//                if (toolbarTitleView != null) {
+//                    toolbarTitleView.setVisibility(android.view.View.GONE);
+//                }
+            } else {
+                // 非 MD 文件：隐藏 CollapsingToolbarLayout 的默认标题，使用自定义 TextView
+                toolBarLayout.setTitle(titleText);
+//                if (toolbarTitleView != null) {
+//                    toolbarTitleView.setVisibility(android.view.View.VISIBLE);
+////                    toolbarTitleView.setText(titleText);
+//                    // 如果文本超过3行，启用滚动效果
+//                    toolbarTitleView.post(() -> {
+//                        if (toolbarTitleView.getLineCount() > 3) {
+//                            toolbarTitleView.setSelected(true); // 启用 marquee 滚动
+//                        }
+//                    });
+//                }
             }
-            toolBarLayout.setTitle(toolbarTitle);
         }
 
         barMenuOnClickListener();
@@ -159,20 +201,31 @@ public class ContentActivity extends AppCompatActivity {
         // TODO 文章官方地址
         fabInfo.setOnClickListener(view -> new MaterialAlertDialogBuilder(ContentActivity.this).setTitle(view.getContentDescription()).setPositiveButton(getResources().getString(R.string.i_know), null).setMessage(getResources().getString(R.string.empty_data)).show());
 
-        mViewModel.getFavorite(mArticleId, Classify.FULL_CATEGORY.getName()).observe(this, libraries -> {
-            if (!libraries.isEmpty()) {
-                mLibrariesId = libraries.stream().map(Libraries::getId).findFirst().get();
-                mFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
-                mCollected = true;
-            } else {
-                mFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                mCollected = false;
-            }
-        });
+        // 只有 MD 文件才需要收藏功能（因为需要 Article 对象）
+        if (mArticleId != null) {
+            mViewModel.getFavorite(mArticleId, Classify.FULL_CATEGORY.getName()).observe(this, libraries -> {
+                if (!libraries.isEmpty()) {
+                    mLibrariesId = libraries.stream().map(Libraries::getId).findFirst().get();
+                    mFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    mCollected = true;
+                } else {
+                    mFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    mCollected = false;
+                }
+            });
+        } else {
+            // 非 MD 文件，隐藏收藏按钮或禁用
+            mFavorite.setVisibility(android.view.View.GONE);
+        }
 
         mFavorite.setOnClickListener(view -> favoriteManager());
 
-        setUpRecyclerView();
+        // 根据文件类型选择显示方式
+        if ("md".equalsIgnoreCase(mFileType) && mArticle != null) {
+            setUpRecyclerView();
+        } else {
+//            setUpWebView();
+        }
 
         setUpBottomDrawer();
     }
@@ -180,19 +233,27 @@ public class ContentActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mSelectionTracker.onRestoreInstanceState(savedInstanceState);
+        if (mSelectionTracker != null) {
+            mSelectionTracker.onRestoreInstanceState(savedInstanceState);
+        }
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        mSelectionTracker.onSaveInstanceState(outState);
+        if (mSelectionTracker != null) {
+            mSelectionTracker.onSaveInstanceState(outState);
+        }
     }
 
     private void barMenuOnClickListener() {
         mBottomAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.menu_share) {
-                // share
+                // share - 只有 MD 文件才支持选择分享功能
+                if (mSelectionTracker == null) {
+                    Toast.makeText(this, "此文件类型不支持选择分享功能", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 if (mSelectionTracker.getSelection().isEmpty()) {
                     Toast.makeText(this, getResources().getString(R.string.select_share_content), Toast.LENGTH_SHORT).show();
                 } else {
@@ -215,8 +276,12 @@ public class ContentActivity extends AppCompatActivity {
                             }
                             saveLawPicture();
                         }
-                        mSelectionTracker.clearSelection();
-                        mBinding.tvCount.setText(String.format(getString(R.string.word_count), mArticle.getInfo().getWordsCount()));
+                        if (mSelectionTracker != null) {
+                            mSelectionTracker.clearSelection();
+                        }
+                        if (mArticle != null && mArticle.getInfo() != null) {
+                            mBinding.tvCount.setText(String.format(getString(R.string.word_count), mArticle.getInfo().getWordsCount()));
+                        }
                     }).show();
                 }
             } else if (item.getItemId() == R.id.menu_collections) {
@@ -306,6 +371,14 @@ public class ContentActivity extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         mRecyclerView = findViewById(R.id.rv_text);
+        mWebView = findViewById(R.id.web_view);
+
+        // 显示 RecyclerView，隐藏 WebView
+        mRecyclerView.setVisibility(android.view.View.VISIBLE);
+        if (mWebView != null) {
+            mWebView.setVisibility(android.view.View.GONE);
+        }
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mContentList = mArticle.getContents();
@@ -354,11 +427,19 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void showHistory() {
+        if (mArticle == null || mArticle.getInfo() == null) {
+            Toast.makeText(this, "此文件类型不支持历史记录功能", Toast.LENGTH_SHORT).show();
+            return;
+        }
         new MaterialAlertDialogBuilder(ContentActivity.this).setTitle(mArticle.getTitle()).setPositiveButton(getResources().getString(R.string.i_know), null).setItems(mArticle.getInfo().getCorrectHistory().toArray(new String[0]), null).show();
     }
 
     protected void setUpBottomDrawer() {
         mBottomAppBar.setNavigationOnClickListener(v -> {
+            if (mArticle == null) {
+                Toast.makeText(this, "此文件类型不支持目录功能", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (mArticle.getToc().isEmpty()) {
                 Toast.makeText(this, getResources().getString(R.string.untitled), Toast.LENGTH_SHORT).show();
                 return;
@@ -385,7 +466,7 @@ public class ContentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!mSelectionTracker.getSelection().isEmpty()) {
+        if (mSelectionTracker != null && !mSelectionTracker.getSelection().isEmpty()) {
             mSelectionTracker.clearSelection();
         } else {
             super.onBackPressed();
@@ -403,6 +484,11 @@ public class ContentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_search) {
+            // 只有 MD 文件才支持搜索功能
+            if (mAdapter == null) {
+                Toast.makeText(this, "此文件类型不支持搜索功能", Toast.LENGTH_SHORT).show();
+                return true;
+            }
             SearchView searchView = (SearchView) item.getActionView();
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -422,6 +508,10 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void querySearch(String query) {
+        // 检查 mAdapter 是否为 null（非 MD 文件时可能为 null）
+        if (mAdapter == null || mContentList == null) {
+            return;
+        }
         mAdapter.setData(mContentList, query);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ContentDiffCallBack(mContentList, mContentList));
         diffResult.dispatchUpdatesTo(mAdapter);

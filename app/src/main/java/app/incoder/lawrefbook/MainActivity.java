@@ -158,8 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void searchData(String query) {
         Category category = mCategories.get(mTabLayout.getSelectedTabPosition());
-        List<Law> laws = Sqlite3Dao.lawList(this, category.getId());
-        List<Law> data = laws.stream().filter(t -> t.getName().contains(query)).collect(Collectors.toList());
+        // 获取所有法律数据（包括所有子分类的法律），用于搜索
+        List<Law> allLaws = Sqlite3Dao.getAllLawsByParentCategory(this, category.getId());
+        // 根据搜索关键词过滤
+        List<Law> data = allLaws.stream()
+                .filter(t -> t.getName().contains(query))
+                .collect(Collectors.toList());
         mFragmentList.get(mTabLayout.getSelectedTabPosition()).changeLawRef(data);
     }
 }

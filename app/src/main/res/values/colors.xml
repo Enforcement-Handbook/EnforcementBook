@@ -18,11 +18,11 @@
     <color name="purple_200">#FFBB86FC</color>
     <!--    #8d1b11-->
     <!--    #61150e-->
-    <color name="purple_500">#FF8d1b11</color>
-    <color name="purple_700">#FF8d1b11</color>
+    <color name="purple_500">#134A8F</color>
+    <color name="purple_700">#134A8F</color>
     <!--    #FF03DAC5-->
     <!--    #FF018786-->
-    <color name="teal_200">#FFFEDBD0</color>
+    <color name="teal_200">#d38113</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

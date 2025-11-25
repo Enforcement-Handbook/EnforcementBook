@@ -46,19 +46,198 @@
                 android:orientation="vertical"
                 android:padding="@dimen/dimen_16">
 
+                <ImageView
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_80"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/xinjiang"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/zg" />
+
+                <TextView
+                    style="?attr/textAppearanceHeadline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:text="@string/praise"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="?attr/textAppearanceSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/xj_en"
+                    android:textSize="@dimen/size_6"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_app_tip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_tip"
-                    android:textColor="@color/design_default_color_on_secondary" />
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/app_tip1"
+                    android:textSize="@dimen/size_10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_tip2"
+                    android:textSize="@dimen/size_10" />
 
                 <TextView
                     android:id="@+id/tv_thank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_8"
-                    android:text="@string/thanks" />
+                    android:text="@string/thanks"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:text="@string/data_source"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/listChoiceBackgroundIndicator"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingTop="@dimen/dimen_12"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:paddingBottom="@dimen/dimen_12">
+
+                    <ImageView
+                        android:id="@+id/iv_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dimen_16"
+                        android:contentDescription="@string/data_source"
+                        android:src="@drawable/database_24px"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/iv_data"
+                        android:text="@string/design_style"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_data"
+                        android:layout_toEndOf="@+id/iv_data"
+                        android:autoLink="web"
+                        android:text="@string/data_source_address"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_0.5"
+                    android:background="?android:attr/listDivider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/listChoiceBackgroundIndicator"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingTop="@dimen/dimen_12"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:paddingBottom="@dimen/dimen_12">
+
+                    <ImageView
+                        android:id="@+id/iv_github"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dimen_16"
+                        android:contentDescription="@string/source_code"
+                        android:src="@drawable/ic_github_24px"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_github"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/iv_github"
+                        android:text="@string/source_code"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_github"
+                        android:layout_toEndOf="@+id/iv_github"
+                        android:autoLink="web"
+                        android:text="@string/github_lawrefbook"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_0.5"
+                    android:background="?android:attr/listDivider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_praise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/listChoiceBackgroundIndicator"
+                    android:paddingStart="@dimen/dimen_16"
+                    android:paddingTop="@dimen/dimen_12"
+                    android:paddingEnd="@dimen/dimen_16"
+                    android:paddingBottom="@dimen/dimen_12">
+
+                    <ImageView
+                        android:id="@+id/iv_praise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dimen_16"
+                        android:contentDescription="@string/source_code"
+                        android:src="@drawable/ic_baseline_star_half_24"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_praise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/iv_praise"
+                        android:text="@string/praise"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_praise"
+                        android:layout_toEndOf="@+id/iv_praise"
+                        android:autoLink="web"
+                        android:text="@string/praise_desc" />
+                </RelativeLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -130,7 +309,8 @@
                     android:paddingStart="@dimen/dimen_16"
                     android:paddingTop="@dimen/dimen_12"
                     android:paddingEnd="@dimen/dimen_16"
-                    android:paddingBottom="@dimen/dimen_12">
+                    android:paddingBottom="@dimen/dimen_12"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/iv_design"
@@ -162,49 +342,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_0.5"
-                    android:background="?android:attr/listDivider" />
-
-                <RelativeLayout
-                    android:id="@+id/rl_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/listChoiceBackgroundIndicator"
-                    android:paddingStart="@dimen/dimen_16"
-                    android:paddingTop="@dimen/dimen_12"
-                    android:paddingEnd="@dimen/dimen_16"
-                    android:paddingBottom="@dimen/dimen_12">
-
-                    <ImageView
-                        android:id="@+id/iv_data"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dimen_16"
-                        android:contentDescription="@string/data_source"
-                        android:src="@drawable/database_24px" />
-
-                    <TextView
-                        android:id="@+id/tv_data"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/iv_data"
-                        android:text="@string/data_source"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_data"
-                        android:layout_toEndOf="@+id/iv_data"
-                        android:autoLink="web"
-                        android:text="@string/data_source_address"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_0.5"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?android:attr/listDivider"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/rl_log"
@@ -249,48 +388,6 @@
                     android:background="?android:attr/listDivider" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/listChoiceBackgroundIndicator"
-                    android:paddingStart="@dimen/dimen_16"
-                    android:paddingTop="@dimen/dimen_12"
-                    android:paddingEnd="@dimen/dimen_16"
-                    android:paddingBottom="@dimen/dimen_12">
-
-                    <ImageView
-                        android:id="@+id/iv_github"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dimen_16"
-                        android:contentDescription="@string/source_code"
-                        android:src="@drawable/ic_github_24px" />
-
-                    <TextView
-                        android:id="@+id/tv_github"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/iv_github"
-                        android:text="@string/source_code"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_github"
-                        android:layout_toEndOf="@+id/iv_github"
-                        android:autoLink="web"
-                        android:text="@string/github_lawrefbook"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_0.5"
-                    android:background="?android:attr/listDivider" />
-
-                <RelativeLayout
                     android:id="@+id/rl_privacy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -307,7 +404,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/dimen_16"
                         android:contentDescription="@string/privacy_des"
-                        android:src="@drawable/ic_baseline_privacy_tip_24" />
+                        android:src="@drawable/round_cloud_download_24" />
 
                     <TextView
                         android:id="@+id/tv_privacy"
@@ -332,46 +429,6 @@
                     android:layout_height="@dimen/dimen_0.5"
                     android:background="?android:attr/listDivider" />
 
-                <RelativeLayout
-                    android:id="@+id/rl_praise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/listChoiceBackgroundIndicator"
-                    android:paddingStart="@dimen/dimen_16"
-                    android:paddingTop="@dimen/dimen_12"
-                    android:paddingEnd="@dimen/dimen_16"
-                    android:paddingBottom="@dimen/dimen_12">
-
-                    <ImageView
-                        android:id="@+id/iv_praise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dimen_16"
-                        android:contentDescription="@string/source_code"
-                        android:src="@drawable/ic_baseline_star_half_24" />
-
-                    <TextView
-                        android:id="@+id/tv_praise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/iv_praise"
-                        android:text="@string/praise"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_praise"
-                        android:layout_toEndOf="@+id/iv_praise"
-                        android:text="@string/praise_desc" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_0.5"
-                    android:background="?android:attr/listDivider" />
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -381,12 +438,14 @@
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginEnd="@dimen/dimen_16"
             android:text="@string/developers"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:visibility="gone" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16">
+            android:layout_margin="@dimen/dimen_16"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -409,8 +468,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/dimen_16"
-                        android:contentDescription="@string/author"
-                        android:src="@drawable/ic_baseline_done_all_24" />
+                        android:contentDescription="@string/author" />
 
                     <TextView
                         android:id="@+id/tv_author"
@@ -431,7 +489,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_0.5"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?android:attr/listDivider"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/rl_email"
@@ -441,7 +500,8 @@
                     android:paddingStart="@dimen/dimen_16"
                     android:paddingTop="@dimen/dimen_12"
                     android:paddingEnd="@dimen/dimen_16"
-                    android:paddingBottom="@dimen/dimen_12">
+                    android:paddingBottom="@dimen/dimen_12"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/iv_email"
